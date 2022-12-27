@@ -10,4 +10,9 @@ class Camera:
         _, frame = self.webcam.read()
         return frame
 
+    def saveFrameAs(_self, frame, name):
+        cv2.imwrite(name, frame)
 
+    def exit(self):
+        self.webcam.release()
+        cv2.destroyAllWindows()

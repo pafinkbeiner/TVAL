@@ -66,8 +66,6 @@ sum_array[1][2] = sum_array[1][2] + 1
 
 print(sum_array)
 
-# junge python was soll die scheiße
-
 # for y_index, x_array in enumerate(frame):
 #     for x_index, rgb_array in enumerate(x_array): 
 #         if y_index == 50 and x_index == 50:

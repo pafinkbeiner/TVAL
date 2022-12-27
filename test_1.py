@@ -1,6 +1,5 @@
 import os
 import importlib
-import time
 from constants import CAPTURE_RATE, AMOUNT_ZONES_X, AMOUNT_ZONES_Y, RESOLUTION_X, RESOLUTION_Y
 import numpy as np
 camera_lib = None
@@ -19,22 +18,26 @@ Camera = camera_lib.Camera()
 
 sum_array = np.array([ [[0,0,0]] * AMOUNT_ZONES_Y ] * AMOUNT_ZONES_X)
 
+print("sum array")
+print(sum_array)
+
 OFFSET_AMOUNT_X = int(RESOLUTION_X / AMOUNT_ZONES_X)
 OFFSET_AMOUNT_Y = int(RESOLUTION_Y / AMOUNT_ZONES_Y)
 
 print("Calculated x-offset: " + str(OFFSET_AMOUNT_X))
 print("Caluclated y-offset: " + str(OFFSET_AMOUNT_Y))
 
-while True:
-    frame = Camera.getFrame()
-    for x in range(0, AMOUNT_ZONES_X):
-        for y in range(0, AMOUNT_ZONES_Y):
-            # [zeile_x_anfang:zeile_x_ende, zeile_y_anfang:zeile_y_ende]
-            print(""+str(x * OFFSET_AMOUNT_X)+":"+str(x * OFFSET_AMOUNT_X + OFFSET_AMOUNT_X)+","+str(y * OFFSET_AMOUNT_Y)+":"+str(y * OFFSET_AMOUNT_Y + OFFSET_AMOUNT_Y))
-            # sub_image = frame[(x * OFFSET_AMOUNT_X):(x * OFFSET_AMOUNT_X + OFFSET_AMOUNT_X),(y * OFFSET_AMOUNT_Y):(y * OFFSET_AMOUNT_Y + OFFSET_AMOUNT_Y)]
-            # mean_value = np.mean(sub_image, axis=(0, 1))
-            # sum_array[x][y] = mean_value
-            time.sleep(1)
-    time.sleep(CAPTURE_RATE)
+x = 2
+y = 3
+
+frame = Camera.getFrame() 
+Camera.saveFrameAs(frame, "test_1.jpg")
+sub_image = frame[(x * OFFSET_AMOUNT_X):(x * OFFSET_AMOUNT_X * 2),(y * OFFSET_AMOUNT_Y):(y * OFFSET_AMOUNT_Y * 2)]
+mean_value = np.mean(sub_image, axis=(0, 1))
+sum_array[x][y] = mean_value
+Camera.saveFrameAs(sum_array, "test_2.jpg")
+
+print("sum array")
+print(sum_array)
 
 Camera.exit()
