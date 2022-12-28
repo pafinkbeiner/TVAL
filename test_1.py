@@ -16,7 +16,7 @@ else:
 
 Camera = camera_lib.Camera()
 
-sum_array = np.array([ [[0,0,0]] * AMOUNT_ZONES_Y ] * AMOUNT_ZONES_X)
+sum_array = np.array([ [[0,0,0]] * AMOUNT_ZONES_X ] * AMOUNT_ZONES_Y)
 
 print("sum array")
 print(sum_array)
