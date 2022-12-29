@@ -3,7 +3,7 @@ Description=TVAL
 
 [Service]
 Type=simple
-ExecStart=python3 main.py
+ExecStart=sudo python3 /home/pi/TVAL/main.py
 
 [Install]
 WantedBy=multi-user.target
