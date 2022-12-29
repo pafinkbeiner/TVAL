@@ -90,7 +90,7 @@ while True:
         wled_payload["seg"].append({
             "start": wled_start,
             "stop": wled_stop,
-            "col": [wled_col]
+            "col": [wled_col[2], wled_col[1], wled_col[0]]
         })
 
     # send to wled
