@@ -1,7 +1,7 @@
 import os
 import importlib
 import time
-from constants import CAPTURE_RATE, AMOUNT_ZONES_X, AMOUNT_ZONES_Y, RESOLUTION_X, RESOLUTION_Y, WLED_OFFSET, WLED_IP
+from constants import CAPTURE_RATE, AMOUNT_ZONES_X, AMOUNT_ZONES_Y, RESOLUTION_X, RESOLUTION_Y, WLED_OFFSET, WLED_IP, NEGATE_IMAGE
 import numpy as np
 import requests
 import math
@@ -37,6 +37,10 @@ print("WLED COUNT: "+str(wled_count))
 
 while True:
     frame = Camera.getFrame()
+
+    if NEGATE_IMAGE == True:
+        frame = frame[:, ::-1]
+
     start_time = time.time()
 
     # calculate sum array
@@ -89,6 +93,7 @@ while True:
             "col": [wled_col]
         })
 
+    # send to wled
     payload = json.dumps(wled_payload, cls=NumpyArrayEncoder)
     headers = {
         'Content-Type': 'application/json'
