@@ -1,0 +1,9 @@
+[Unit]
+Description=TVAL
+
+[Service]
+Type=simple
+ExecStart=python3 main.py
+
+[Install]
+WantedBy=multi-user.target
