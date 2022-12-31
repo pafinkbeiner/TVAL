@@ -7,6 +7,8 @@ import requests
 import math
 import json
 from NumpyArrayEncoder import NumpyArrayEncoder
+from mqtt import MQTTClient
+
 camera_lib = None
 
 
@@ -29,6 +31,9 @@ OFFSET_AMOUNT_Y = int(RESOLUTION_Y / AMOUNT_ZONES_Y)
 
 print("Calculated x-offset: " + str(OFFSET_AMOUNT_X))
 print("Caluclated y-offset: " + str(OFFSET_AMOUNT_Y))
+
+# initialize MQTT Connection
+mqtt_client = MQTTClient()
 
 # get info from wled
 wled_info_response = requests.request("GET", "http://"+str(WLED_IP)+"/json/info").json()
@@ -90,15 +95,14 @@ while True:
         wled_payload["seg"].append({
             "start": wled_start,
             "stop": wled_stop,
-            "col": [np.flip(wled_col)]
+            "col": [np.flip(wled_col)] # bgr -> rgb 
         })
 
     # send to wled
     payload = json.dumps(wled_payload, cls=NumpyArrayEncoder)
-    headers = {
-        'Content-Type': 'application/json'
-    }
-    requests.request("POST", "http://"+str(WLED_IP)+"/json", headers=headers, data=payload)
+    mqtt_client.publish(payload)
+
+    # performance measure
     print("--- %s milliseconds ---" % ((time.time() - start_time) * 1000))
     time.sleep(1 / CAPTURE_RATE)
 
