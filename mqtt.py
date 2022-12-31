@@ -2,7 +2,7 @@ from paho.mqtt import client as mqtt_client
 
 MQTT_BROKER="10.0.0.212" # placeholder value
 MQTT_PORT=1883
-MQTT_TOPIC="wled/003/api"
+MQTT_TOPIC="wled/001/api"
 MQTT_CLIENT_ID="TVAL-001"
 MQTT_USERNAME="homeassistant" # placeholder value
 MQTT_PASSWORD="Uekaiphee7shieKaiThaenau3aedaegheigahru6Heejausohpeid0joh3eicohd" # placeholder value
